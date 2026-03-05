@@ -6,13 +6,9 @@ HA integration relies on. Uses the python-nicodaimus library directly.
 
 from __future__ import annotations
 
-import json
-from typing import Any
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import MagicMock
 
 import aiohttp
-import pytest
-
 from nicodaimus import (
     NicodaimusAuthError,
     NicodaimusClient,

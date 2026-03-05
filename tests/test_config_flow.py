@@ -5,12 +5,10 @@ from __future__ import annotations
 from unittest.mock import AsyncMock, patch
 
 import pytest
-
 from homeassistant import config_entries
 from homeassistant.const import CONF_API_KEY
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
-
 from nicodaimus import NicodaimusAuthError, NicodaimusConnectionError
 
 from custom_components.nicodaimus.const import (

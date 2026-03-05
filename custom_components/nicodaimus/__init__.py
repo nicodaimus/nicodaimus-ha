@@ -8,10 +8,9 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-
 from nicodaimus import NicodaimusAuthError, NicodaimusClient, NicodaimusConnectionError
 
-from .const import CONF_BASE_URL, DEFAULT_BASE_URL, DOMAIN, LOGGER
+from .const import CONF_BASE_URL, DEFAULT_BASE_URL, DOMAIN
 
 PLATFORMS = (Platform.CONVERSATION,)
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
@@ -19,9 +18,7 @@ CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 type NicodaimusConfigEntry = ConfigEntry[NicodaimusClient]
 
 
-async def async_setup_entry(
-    hass: HomeAssistant, entry: NicodaimusConfigEntry
-) -> bool:
+async def async_setup_entry(hass: HomeAssistant, entry: NicodaimusConfigEntry) -> bool:
     """Set up nicodAImus from a config entry."""
     session = async_get_clientsession(hass)
     client = NicodaimusClient(
@@ -46,9 +43,7 @@ async def async_setup_entry(
     return True
 
 
-async def async_unload_entry(
-    hass: HomeAssistant, entry: NicodaimusConfigEntry
-) -> bool:
+async def async_unload_entry(hass: HomeAssistant, entry: NicodaimusConfigEntry) -> bool:
     """Unload nicodAImus."""
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 

@@ -1,13 +1,14 @@
 {
-  "domain": "nicodaimus",
-  "name": "nicodAImus",
   "after_dependencies": ["assist_pipeline", "intent"],
   "codeowners": ["@nicodaimus"],
   "config_flow": true,
   "dependencies": ["conversation"],
   "documentation": "https://nicodaimus.com/docs/home-assistant",
+  "domain": "nicodaimus",
   "integration_type": "service",
   "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/nicodaimus/nicodaimus-ha/issues",
+  "name": "nicodAImus",
   "requirements": ["python-nicodaimus==0.1.0"],
   "version": "1.0.0"
 }

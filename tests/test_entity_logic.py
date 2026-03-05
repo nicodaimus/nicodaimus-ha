@@ -8,25 +8,17 @@ from __future__ import annotations
 
 import json
 from typing import Any
-from unittest.mock import AsyncMock, MagicMock
-
-import pytest
 
 from nicodaimus import (
     ChatChunk,
     ChunkChoice,
     ChunkDelta,
     FunctionCall,
-    NicodaimusAuthError,
-    NicodaimusClient,
-    NicodaimusConnectionError,
-    NicodaimusError,
     ToolCallDelta,
     Usage,
 )
 
 from .conftest import make_stream_chunks
-
 
 # -- Helper: async iterator from list --
 
@@ -227,9 +219,7 @@ class TestToolCallAccumulation:
                 id="test",
                 model="auto",
                 choices=[],
-                usage=Usage(
-                    prompt_tokens=10, completion_tokens=5, total_tokens=15
-                ),
+                usage=Usage(prompt_tokens=10, completion_tokens=5, total_tokens=15),
             )
         ]
 
@@ -272,9 +262,7 @@ class TestOpenAIMessageFormat:
         assert tc["id"] == "call_abc"
         assert tc["type"] == "function"
         assert tc["function"]["name"] == "HassTurnOn"
-        assert json.loads(tc["function"]["arguments"]) == {
-            "entity_id": "light.lr"
-        }
+        assert json.loads(tc["function"]["arguments"]) == {"entity_id": "light.lr"}
 
     def test_tool_result_message(self) -> None:
         """Test tool result message format."""

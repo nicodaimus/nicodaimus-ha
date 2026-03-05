@@ -4,21 +4,17 @@ from __future__ import annotations
 
 from unittest.mock import AsyncMock, patch
 
-import pytest
-
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import CONF_API_KEY
 from homeassistant.core import HomeAssistant
-
 from nicodaimus import NicodaimusAuthError, NicodaimusConnectionError
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.nicodaimus.const import (
     CONF_BASE_URL,
     DEFAULT_BASE_URL,
     DOMAIN,
 )
-
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 
 def _make_entry(hass: HomeAssistant) -> MockConfigEntry:

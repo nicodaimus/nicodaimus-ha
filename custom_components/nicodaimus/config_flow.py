@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 import logging
+from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any
 
 import voluptuous as vol
-
 from homeassistant.config_entries import (
     SOURCE_REAUTH,
     ConfigEntryState,
@@ -29,7 +28,6 @@ from homeassistant.helpers.selector import (
     TemplateSelector,
 )
 from homeassistant.helpers.typing import VolDictType
-
 from nicodaimus import NicodaimusAuthError, NicodaimusClient, NicodaimusConnectionError
 
 from .const import (
@@ -91,9 +89,7 @@ class NicodaimusConfigFlow(ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
 
         if user_input is not None:
-            self._async_abort_entries_match(
-                {CONF_API_KEY: user_input[CONF_API_KEY]}
-            )
+            self._async_abort_entries_match({CONF_API_KEY: user_input[CONF_API_KEY]})
             try:
                 await validate_input(self.hass, user_input)
             except NicodaimusAuthError:
@@ -244,9 +240,9 @@ class NicodaimusSubentryFlowHandler(ConfigSubentryFlow):
         step_schema: VolDictType = {}
 
         if self._is_new:
-            step_schema[
-                vol.Required(CONF_NAME, default=DEFAULT_CONVERSATION_NAME)
-            ] = str
+            step_schema[vol.Required(CONF_NAME, default=DEFAULT_CONVERSATION_NAME)] = (
+                str
+            )
 
         step_schema.update(
             {
@@ -297,17 +293,11 @@ class NicodaimusSubentryFlowHandler(ConfigSubentryFlow):
     ) -> SubentryFlowResult:
         """Manage advanced options."""
         step_schema: VolDictType = {
-            vol.Optional(
-                CONF_CHAT_MODEL, default=DEFAULT_MODEL
-            ): str,
-            vol.Optional(
-                CONF_MAX_TOKENS, default=RECOMMENDED_MAX_TOKENS
-            ): int,
+            vol.Optional(CONF_CHAT_MODEL, default=DEFAULT_MODEL): str,
+            vol.Optional(CONF_MAX_TOKENS, default=RECOMMENDED_MAX_TOKENS): int,
             vol.Optional(
                 CONF_TEMPERATURE, default=RECOMMENDED_TEMPERATURE
-            ): NumberSelector(
-                NumberSelectorConfig(min=0, max=2, step=0.1)
-            ),
+            ): NumberSelector(NumberSelectorConfig(min=0, max=2, step=0.1)),
         }
 
         if user_input is not None:

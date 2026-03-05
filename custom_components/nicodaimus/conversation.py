@@ -40,9 +40,7 @@ class NicodaimusConversationEntity(
 
     _attr_supports_streaming = True
 
-    def __init__(
-        self, entry: NicodaimusConfigEntry, subentry: ConfigSubentry
-    ) -> None:
+    def __init__(self, entry: NicodaimusConfigEntry, subentry: ConfigSubentry) -> None:
         """Initialize the agent."""
         super().__init__(entry, subentry)
         if self.subentry.data.get(CONF_LLM_HASS_API):

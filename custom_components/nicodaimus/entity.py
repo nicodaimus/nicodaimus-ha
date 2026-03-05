@@ -6,20 +6,19 @@ import json
 from collections.abc import AsyncGenerator, Callable
 from typing import Any
 
-from voluptuous_openapi import convert
-
 from homeassistant.components import conversation
 from homeassistant.config_entries import ConfigSubentry
 from homeassistant.exceptions import HomeAssistantError
-from homeassistant.helpers import device_registry as dr, llm
+from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import llm
 from homeassistant.helpers.entity import Entity
-
 from nicodaimus import (
     NicodaimusAuthError,
     NicodaimusClient,
     NicodaimusConnectionError,
     NicodaimusError,
 )
+from voluptuous_openapi import convert
 
 from . import NicodaimusConfigEntry
 from .const import (
@@ -44,9 +43,7 @@ def _format_tool(
         "function": {
             "name": tool.name,
             "description": tool.description or "",
-            "parameters": convert(
-                tool.parameters, custom_serializer=custom_serializer
-            ),
+            "parameters": convert(tool.parameters, custom_serializer=custom_serializer),
         },
     }
 
@@ -148,9 +145,7 @@ async def _transform_stream(
                     if tc_delta.function.name:
                         tool_call_map[idx]["name"] = tc_delta.function.name
                     if tc_delta.function.arguments:
-                        tool_call_map[idx]["arguments"] += (
-                            tc_delta.function.arguments
-                        )
+                        tool_call_map[idx]["arguments"] += tc_delta.function.arguments
 
     # Yield accumulated tool calls
     if tool_call_map:
@@ -160,9 +155,7 @@ async def _transform_stream(
             try:
                 tool_args = json.loads(tc["arguments"]) if tc["arguments"] else {}
             except json.JSONDecodeError:
-                LOGGER.warning(
-                    "Failed to parse tool arguments: %s", tc["arguments"]
-                )
+                LOGGER.warning("Failed to parse tool arguments: %s", tc["arguments"])
                 tool_args = {}
             tool_inputs.append(
                 llm.ToolInput(
@@ -191,9 +184,7 @@ class NicodaimusBaseLLMEntity(Entity):
     _attr_has_entity_name = True
     _attr_name = None
 
-    def __init__(
-        self, entry: NicodaimusConfigEntry, subentry: ConfigSubentry
-    ) -> None:
+    def __init__(self, entry: NicodaimusConfigEntry, subentry: ConfigSubentry) -> None:
         """Initialize the entity."""
         self.entry = entry
         self.subentry = subentry
@@ -249,9 +240,7 @@ class NicodaimusBaseLLMEntity(Entity):
                 ]
 
                 # Rebuild messages with new content for next iteration
-                messages.extend(
-                    _convert_content_to_messages(new_content)
-                )
+                messages.extend(_convert_content_to_messages(new_content))
             except NicodaimusAuthError as err:
                 self.entry.async_start_reauth(self.hass)
                 raise HomeAssistantError(
