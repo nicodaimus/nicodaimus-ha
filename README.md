@@ -1,6 +1,6 @@
 # nicodAImus Home Assistant Integration
 
-Privacy-first AI conversation agent for Home Assistant, powered by [nicodAImus](https://nicodaimus.com).
+Privacy-first AI conversation agent for Home Assistant, powered by [nicodAImus](https://nicodaimus.com). In order for the integration to work you need a **passthrough API key** from [nicodAImus](https://nicodaimus.com/account/create/).
 
 ## Features
 
