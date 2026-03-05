@@ -35,8 +35,9 @@ try:
 
     @pytest.fixture(autouse=True)
     async def setup_ha(hass: HomeAssistant) -> None:
-        """Set up Home Assistant core component (needed for conversation dep)."""
+        """Set up Home Assistant core + conversation (needed for our dependency)."""
         assert await async_setup_component(hass, "homeassistant", {})
+        assert await async_setup_component(hass, "conversation", {})
 
 except ImportError:
     # HA not installed (Python 3.12 pure-unit-test mode)
