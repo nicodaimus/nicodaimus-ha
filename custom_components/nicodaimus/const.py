@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import timedelta
 
 from homeassistant.const import CONF_LLM_HASS_API
 from homeassistant.helpers import llm
@@ -13,6 +14,9 @@ LOGGER: logging.Logger = logging.getLogger(__package__)
 DEFAULT_BASE_URL = "https://chat.nicodaimus.com/v1"
 DEFAULT_MODEL = "auto"
 DEFAULT_CONVERSATION_NAME = "nicodAImus Conversation"
+
+ACCOUNT_API_PATH = "/account-api"
+DEFAULT_SCAN_INTERVAL = timedelta(minutes=5)
 
 CONF_BASE_URL = "base_url"
 CONF_CHAT_MODEL = "chat_model"

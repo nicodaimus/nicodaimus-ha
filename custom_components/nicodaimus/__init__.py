@@ -11,20 +11,24 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from nicodaimus import NicodaimusAuthError, NicodaimusClient, NicodaimusConnectionError
 
 from .const import CONF_BASE_URL, DEFAULT_BASE_URL, DOMAIN
+from .coordinator import NicodaimusRuntimeData, NicodaimusStatusCoordinator
 
-PLATFORMS = (Platform.CONVERSATION,)
+PLATFORMS = (Platform.CONVERSATION, Platform.SENSOR)
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
-type NicodaimusConfigEntry = ConfigEntry[NicodaimusClient]
+type NicodaimusConfigEntry = ConfigEntry[NicodaimusRuntimeData]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: NicodaimusConfigEntry) -> bool:
     """Set up nicodAImus from a config entry."""
     session = async_get_clientsession(hass)
+    api_key = entry.data[CONF_API_KEY]
+    base_url = entry.data.get(CONF_BASE_URL, DEFAULT_BASE_URL)
+
     client = NicodaimusClient(
-        api_key=entry.data[CONF_API_KEY],
+        api_key=api_key,
         session=session,
-        base_url=entry.data.get(CONF_BASE_URL, DEFAULT_BASE_URL),
+        base_url=base_url,
     )
 
     try:
@@ -34,7 +38,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: NicodaimusConfigEntry) -
     except NicodaimusConnectionError as err:
         raise ConfigEntryNotReady(err) from err
 
-    entry.runtime_data = client
+    coordinator = NicodaimusStatusCoordinator(
+        hass,
+        session=session,
+        api_key=api_key,
+        base_url=base_url,
+    )
+    await coordinator.async_config_entry_first_refresh()
+
+    entry.runtime_data = NicodaimusRuntimeData(
+        client=client,
+        coordinator=coordinator,
+    )
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 

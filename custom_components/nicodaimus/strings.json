@@ -42,6 +42,22 @@
       }
     }
   },
+  "entity": {
+    "sensor": {
+      "tier": {
+        "name": "Account tier"
+      },
+      "subscription_status": {
+        "name": "Subscription status"
+      },
+      "searches_today": {
+        "name": "Searches today"
+      },
+      "searches_month": {
+        "name": "Searches this month"
+      }
+    }
+  },
   "config_subentries": {
     "conversation": {
       "abort": {

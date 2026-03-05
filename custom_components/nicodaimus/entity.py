@@ -203,7 +203,7 @@ class NicodaimusBaseLLMEntity(Entity):
     ) -> None:
         """Generate an answer for the chat log."""
         options = self.subentry.data
-        client = self.entry.runtime_data
+        client = self.entry.runtime_data.client
 
         model = options.get(CONF_CHAT_MODEL, DEFAULT_MODEL)
         max_tokens = options.get(CONF_MAX_TOKENS, RECOMMENDED_MAX_TOKENS)

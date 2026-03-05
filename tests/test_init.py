@@ -15,6 +15,18 @@ from custom_components.nicodaimus.const import (
     DEFAULT_BASE_URL,
     DOMAIN,
 )
+from custom_components.nicodaimus.coordinator import NicodaimusAccountData
+
+MOCK_ACCOUNT_DATA = NicodaimusAccountData(
+    tier="pro",
+    tier_name="nicodAImus Pro",
+    subscription_status="active",
+    masked_account="****9175",
+    search_day_count=12,
+    search_day_limit=50,
+    search_month_count=87,
+    search_month_limit=1500,
+)
 
 
 def _make_entry(hass: HomeAssistant) -> MockConfigEntry:
@@ -35,9 +47,15 @@ async def test_setup_entry_success(hass: HomeAssistant) -> None:
     """Test that setup_entry creates client and forwards platforms."""
     entry = _make_entry(hass)
 
-    with patch(
-        "custom_components.nicodaimus.NicodaimusClient",
-    ) as mock_cls:
+    with (
+        patch(
+            "custom_components.nicodaimus.NicodaimusClient",
+        ) as mock_cls,
+        patch(
+            "custom_components.nicodaimus.NicodaimusStatusCoordinator._async_update_data",
+            return_value=MOCK_ACCOUNT_DATA,
+        ),
+    ):
         client = mock_cls.return_value
         client.validate_connection = AsyncMock(return_value=True)
 
@@ -88,9 +106,15 @@ async def test_unload_entry(hass: HomeAssistant) -> None:
     """Test that unloading works cleanly."""
     entry = _make_entry(hass)
 
-    with patch(
-        "custom_components.nicodaimus.NicodaimusClient",
-    ) as mock_cls:
+    with (
+        patch(
+            "custom_components.nicodaimus.NicodaimusClient",
+        ) as mock_cls,
+        patch(
+            "custom_components.nicodaimus.NicodaimusStatusCoordinator._async_update_data",
+            return_value=MOCK_ACCOUNT_DATA,
+        ),
+    ):
         client = mock_cls.return_value
         client.validate_connection = AsyncMock(return_value=True)
 
