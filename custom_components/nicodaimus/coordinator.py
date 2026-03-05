@@ -71,7 +71,7 @@ class NicodaimusStatusCoordinator(DataUpdateCoordinator[NicodaimusAccountData]):
         self._session = session
         self._api_key = api_key
         self._base_url_root = _account_api_base(base_url)
-        self._headers = {"x-nicod-account": api_key}
+        self._headers = {"Authorization": f"Bearer {api_key}"}
 
     async def _async_update_data(self) -> NicodaimusAccountData:
         """Fetch account status and usage from the API."""
