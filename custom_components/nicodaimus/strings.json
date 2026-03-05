@@ -1,0 +1,84 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_service%]",
+      "reauth_successful": "[%key:common::config_flow::abort::reauth_successful%]",
+      "reconfigure_successful": "[%key:common::config_flow::abort::reconfigure_successful%]"
+    },
+    "error": {
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
+    "step": {
+      "user": {
+        "data": {
+          "api_key": "[%key:common::config_flow::data::api_key%]",
+          "base_url": "API Base URL"
+        },
+        "data_description": {
+          "api_key": "Your nicodAImus API key.",
+          "base_url": "The base URL for the nicodAImus API. Only change this if you use a custom endpoint."
+        },
+        "description": "Set up nicodAImus by providing your API key. You can get your API key from your [nicodAImus account]({instructions_url})."
+      },
+      "reauth_confirm": {
+        "data": {
+          "api_key": "[%key:common::config_flow::data::api_key%]"
+        },
+        "data_description": {
+          "api_key": "Your updated nicodAImus API key."
+        },
+        "description": "Your API key is no longer valid. Please enter your updated nicodAImus API key."
+      },
+      "reconfigure": {
+        "data": {
+          "base_url": "API Base URL"
+        },
+        "data_description": {
+          "base_url": "[%key:component::nicodaimus::config::step::user::data_description::base_url%]"
+        },
+        "description": "Update the nicodAImus API base URL."
+      }
+    }
+  },
+  "config_subentries": {
+    "conversation": {
+      "abort": {
+        "entry_not_loaded": "Cannot add things while the configuration is disabled.",
+        "reconfigure_successful": "[%key:common::config_flow::abort::reconfigure_successful%]"
+      },
+      "entry_type": "Conversation agent",
+      "initiate_flow": {
+        "reconfigure": "Reconfigure conversation agent",
+        "user": "Add conversation agent"
+      },
+      "step": {
+        "init": {
+          "data": {
+            "llm_hass_api": "[%key:common::config_flow::data::llm_hass_api%]",
+            "name": "[%key:common::config_flow::data::name%]",
+            "prompt": "[%key:common::config_flow::data::prompt%]",
+            "recommended": "Recommended model settings"
+          },
+          "data_description": {
+            "prompt": "Instruct how the LLM should respond. This can be a template."
+          }
+        },
+        "advanced": {
+          "data": {
+            "chat_model": "[%key:common::generic::model%]",
+            "max_tokens": "Maximum tokens to return in response",
+            "temperature": "Temperature"
+          },
+          "data_description": {
+            "chat_model": "The model to use for conversations. Use 'auto' for automatic selection.",
+            "max_tokens": "The maximum number of tokens the model can generate in a response.",
+            "temperature": "Controls randomness. Lower values make responses more focused and deterministic."
+          },
+          "title": "Advanced settings"
+        }
+      }
+    }
+  }
+}

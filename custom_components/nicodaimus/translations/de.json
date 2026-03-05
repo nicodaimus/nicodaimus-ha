@@ -1,0 +1,84 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Dienst ist bereits konfiguriert",
+      "reauth_successful": "Erneute Authentifizierung war erfolgreich",
+      "reconfigure_successful": "Neukonfiguration war erfolgreich"
+    },
+    "error": {
+      "cannot_connect": "Verbindung fehlgeschlagen",
+      "invalid_auth": "Ungueltige Authentifizierung",
+      "unknown": "Unerwarteter Fehler"
+    },
+    "step": {
+      "user": {
+        "data": {
+          "api_key": "API-Schluessel",
+          "base_url": "API-Basis-URL"
+        },
+        "data_description": {
+          "api_key": "Ihr nicodAImus API-Schluessel.",
+          "base_url": "Die Basis-URL der nicodAImus API. Aendern Sie dies nur, wenn Sie einen eigenen Endpunkt verwenden."
+        },
+        "description": "Richten Sie nicodAImus ein, indem Sie Ihren API-Schluessel eingeben. Sie erhalten Ihren API-Schluessel in Ihrem [nicodAImus-Konto]({instructions_url})."
+      },
+      "reauth_confirm": {
+        "data": {
+          "api_key": "API-Schluessel"
+        },
+        "data_description": {
+          "api_key": "Ihr aktualisierter nicodAImus API-Schluessel."
+        },
+        "description": "Ihr API-Schluessel ist nicht mehr gueltig. Bitte geben Sie Ihren aktualisierten nicodAImus API-Schluessel ein."
+      },
+      "reconfigure": {
+        "data": {
+          "base_url": "API-Basis-URL"
+        },
+        "data_description": {
+          "base_url": "Die Basis-URL der nicodAImus API. Aendern Sie dies nur, wenn Sie einen eigenen Endpunkt verwenden."
+        },
+        "description": "Aktualisieren Sie die nicodAImus API-Basis-URL."
+      }
+    }
+  },
+  "config_subentries": {
+    "conversation": {
+      "abort": {
+        "entry_not_loaded": "Kann nichts hinzufuegen, solange die Konfiguration deaktiviert ist.",
+        "reconfigure_successful": "Neukonfiguration war erfolgreich"
+      },
+      "entry_type": "Konversationsagent",
+      "initiate_flow": {
+        "reconfigure": "Konversationsagent neu konfigurieren",
+        "user": "Konversationsagent hinzufuegen"
+      },
+      "step": {
+        "init": {
+          "data": {
+            "llm_hass_api": "Home Assistant steuern",
+            "name": "Name",
+            "prompt": "Anweisungen",
+            "recommended": "Empfohlene Modelleinstellungen"
+          },
+          "data_description": {
+            "prompt": "Geben Sie an, wie das Sprachmodell antworten soll. Dies kann ein Template sein."
+          }
+        },
+        "advanced": {
+          "data": {
+            "chat_model": "Modell",
+            "max_tokens": "Maximale Tokens in der Antwort",
+            "temperature": "Temperatur"
+          },
+          "data_description": {
+            "chat_model": "Das Modell fuer Konversationen. Verwenden Sie 'auto' fuer automatische Auswahl.",
+            "max_tokens": "Die maximale Anzahl an Tokens, die das Modell in einer Antwort generieren kann.",
+            "temperature": "Steuert die Zufaelligkeit. Niedrigere Werte machen Antworten fokussierter und deterministischer."
+          },
+          "title": "Erweiterte Einstellungen"
+        }
+      }
+    }
+  }
+}
